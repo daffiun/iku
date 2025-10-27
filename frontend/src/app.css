@@ -3,9 +3,12 @@
 @import "tailwindcss";
 @theme {
     --color-dark: #212123;
+    --color-light-dark: #707079;
+    --color-light-gray: rgba(0, 0, 0, .15);
     --color-base: #ff5c39;
     --color-white-100: #efefef;
     --font-sans: "Nimbus Sans L Reu", Arial, sans-serif;
+    --font-machina: "Neue Machina", Arial, sans-serif;
 }
 
 /* --------------------------------------------------- */
@@ -14,11 +17,20 @@
 
 @font-face {
     font-family: "Nimbus Sans L Reu";
-    src: url("fonts/nimbussanl-regu-webfont.woff2") format("woff2"); 
+    src: url("/fonts/nimbussanl-regu-webfont.woff2") format("woff2"); 
     font-weight: 400; 
     font-style: normal;
     font-display: swap; 
 }
+
+@font-face {
+    font-family: "Neue Machina";
+    src: url("/fonts/NeueMachina-Regular.otf") format("woff2"); 
+    font-weight: 400; 
+    font-style: normal;
+    font-display: swap; 
+}
+
 @font-face {
     font-family: "Nimbus Sans L Reu";
     src: url("/fonts/nimbussanl-bold-webfont.woff2") format("woff2"); 
@@ -37,6 +49,11 @@ body {
     line-height: 1.2rem;
     scroll-behavior: smooth;
     font-size: 1rem;
+}
+
+input{
+    border: none;
+    outline: none;
 }
 
 @utility flex-center {
@@ -81,7 +98,6 @@ body {
 
 .btn-clip{
     transition: background-color 0.3s ease, color 0.3s ease; 
-    color: white;   
     clip-path: polygon(0.5rem 0px, 100% 0px, 100% calc(100% - 0.5rem), calc(100% - 0.5rem) 100%, 0px 100%, 0px 0.5rem);
 }
 
@@ -113,4 +129,100 @@ body {
     border-style: solid;
     border-width: 0px 0px 0.5rem 0.5rem;
     border-color: transparent transparent currentcolor;
+}
+
+/* Contact Us */
+#contact_us > *{
+    font-family: var(--font-machina);
+}
+
+#contact_us input{
+    padding: 8px 10px 8px 0px;
+    color: var(--color-dark);
+    line-height: 150%;
+    letter-spacing: .05em;
+}
+
+input::placeholder, label{
+    color: var(--color-light-dark);
+}
+
+button:hover{
+    cursor: pointer;
+}
+
+button.active{
+    background-color: var(--color-base);
+    color: white;
+}
+
+button.type-pill{
+    height: 2rem;
+    font-size: .8rem;
+    padding: 0 1rem;
+    border: 1px solid var(--color-light-gray);
+    transition: background-color .4s, color .4s;
+}
+
+form span.required{
+    content: "";
+    display: block;
+    @apply abs-center;
+    right: 0;
+    left: unset!important;
+    width: .5rem;
+    height: .5rem;
+    background-size: cover;
+    background-image: url("/images/icon/req-icon.svg");
+}
+
+form textarea{
+    border: 1px solid var(--color-light-gray);
+    border-radius: 5px;
+    margin-top: 10px;
+    min-height: 80px;
+    max-height: 200px;
+    padding: 10px;
+}
+
+form textarea:focus-visible{
+    outline: none;
+}
+
+form span.line{
+    position: relative;
+    display: block;
+    height: 1px;
+}
+
+form span.line::before{
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: .15;
+    background: currentColor;
+}
+
+form span.line::after{
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: scaleX(0);
+    transform-origin: left center;
+    opacity: 1;
+    background: currentColor;
+    transition: transform 1s cubic-bezier(.16, 1, .3, 1);
+}
+
+form input{
+    width: 100%;
+}
+
+form label{
+    position: relative;
+}
+
+form input:focus ~ span.line::after,
+form input:focus-visible ~ span.line::after {
+    transform: scaleX(1);
 }

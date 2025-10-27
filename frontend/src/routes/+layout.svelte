@@ -1,4 +1,5 @@
 <script>
+	import Contact from './../lib/components/Contact.svelte';
     import "../app.css";
     import Header from '$lib/components/Header.svelte'; 
     let { children } = $props();
@@ -11,6 +12,8 @@
 </svelte:head>
 
 <Header />
+
+<Contact />
 
 <main class="flex flex-col min-h-screen">
     <div class="grow">
