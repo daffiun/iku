@@ -6,12 +6,11 @@
     import Logo from "$lib/assets/images/logos/logo.svg"; 
 
     const navLinks = [
-        { text: 'About Us' },
-        { text: 'Feature', active: true },
-        { text: 'Stack' },
-        { text: 'Team' },
+        { text: 'Tentang Kami' },
+        { text: 'Fitur', active: true },
+        { text: 'Tim' },
         { text: 'FAQ' },
-        { text: 'Contact' },
+        { text: 'Kontak' },
     ];
 
     let textLogo;
@@ -117,9 +116,9 @@ onDestroy(() => {
                 </ul>
             </nav>
 
-            <a href="#" class="bg-transparant relative border border-white hover:border-base hover:bg-base btn-nav py-1 px-3 btn-clip">
+            <a href="#" class="bg-transparant relative border border-white text-white hover:border-base hover:bg-base btn-nav py-1 px-3 btn-clip">
                 <span class="stroke"></span>
-                <span class="text-sm text-white">JOIN US</span>
+                <span class="text-sm text-white whitespace-nowrap">GABUNG</span>
             </a>
         </div>
         <div>
@@ -128,7 +127,7 @@ onDestroy(() => {
                 
                 <span class="font-bold relative flex-center z-20 transition-transform duration-300 ease-out 
                             group-hover:translate-x-[-50%] -translate-x-4 group-hover:opacity-0">
-                    Explore Maps
+                    Jelajahi Peta
                 </span>
 
                 <div class="absolute right-3 text-black bg-base rounded-md z-20 
