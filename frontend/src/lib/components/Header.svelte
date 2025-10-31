@@ -6,11 +6,11 @@
     import Logo from "$lib/assets/images/logos/logo.svg"; 
 
     const navLinks = [
-        { text: 'Tentang Kami' },
-        { text: 'Fitur', active: true },
-        { text: 'Tim' },
-        { text: 'FAQ' },
-        { text: 'Kontak' },
+        { text: 'Tentang Kami', href: '#about' },
+        { text: 'Fitur', href: '#', active: true },
+        { text: 'Tim', href: '#ourteam' },
+        { text: 'FAQ', href: '#' },
+        { text: 'Kontak', href: '#contact_us' },
     ];
 
     let textLogo;
@@ -109,7 +109,7 @@
                 <ul class="flex-center space-x-6 text-white text-sm font-medium">
                     {#each navLinks as link}
                         <li class="group relative nav-link">
-                            <a href="#" class="nav-slide-link block h-6 overflow-hidden 
+                            <a href={link.href} class="nav-slide-link block h-6 overflow-hidden 
                                             transition-colors duration-300">
                                 
                                 <div class="nav-slide-wrapper flex flex-col transform transition-transform duration-300 {link.active ? 'text-orange-500' : 'text-gray-300'}">

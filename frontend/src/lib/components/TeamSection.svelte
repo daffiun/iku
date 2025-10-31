@@ -55,7 +55,7 @@
   }
 </script>
 
-<section aria-labelledby="team-heading" class="relative py-12 min-h-screen flex flex-col justify-center">
+<section id="ourteam" aria-labelledby="team-heading" class="relative py-12 min-h-screen flex flex-col justify-center">
 	<div class="h-16 absolute top-0 right-0 left-0 bg-gradient-to-b from-black/90 to-white"></div>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8r">
     <div class="text-center mb-8">
