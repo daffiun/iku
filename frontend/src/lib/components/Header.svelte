@@ -17,75 +17,81 @@
     let navContainer;
     let items;
 
-onMount(() => {
-  gsap.registerPlugin(ScrollTrigger);
-  const items = gsap.utils.toArray('.text-nav');
+    onMount(() => {
+    gsap.registerPlugin(ScrollTrigger);
+    const items = gsap.utils.toArray('.text-nav');
 
-  gsap.context(() => {
-    let lastScroll = 0;
-    let currentState = null;
+    gsap.context(() => {
+        let lastScroll = 0;
+        let currentState = null;
+        let lastDirection = 0;
 
-    ScrollTrigger.create({
-      trigger: 'body',
-      start: 'top top',
-      end: 'bottom bottom',
-      onUpdate: (self) => {
-        const scrollDirection = self.direction; // 1 = down, -1 = up
-        const scrollSm = Math.abs(self.scroll() - lastScroll);
+        ScrollTrigger.create({
+        trigger: 'body',
+        start: 'top top',
+        end: 'bottom bottom',
+        onUpdate: (self) => {
+            const scrollDirection = self.direction; // 1 = down, -1 = up
+            const scrollSm = Math.abs(self.scroll() - lastScroll);
 
-        //? Ignore smallScroll
-        if (scrollSm < 5) return;
-        lastScroll = self.scroll();
+            if (scrollSm < 15) return;
+            lastScroll = self.scroll();
 
-        //? kill active state on movement
-        if (currentState) currentState.kill();
+            if (scrollDirection !== lastDirection) {
+                if (currentState) {
+                    currentState.kill();
+                }
+            } else if (currentState && currentState.isActive()) {
+                return; 
+            }
+            lastDirection = scrollDirection;
 
-        // Scrol down
-        if (scrollDirection === 1) {
-          currentState = gsap.timeline({ defaults: { ease: 'power3.out' } })
-            .to(items, {
-              opacity: 0,
-              yPercent: -20,
-              duration: 0.4,
-              stagger: 0.06,
-              overwrite: 'auto'
-            })
-            .to(navContainer, {
-              width: 0,
-              duration: 0.6,
-              borderRight: 'none',
-              marginRight: 0,
-              paddingRight: 0,
-            }, "-=0.2");
-        }
-
-        // Scroll up
-        if (scrollDirection === -1) {
-          currentState = gsap.timeline({ defaults: { ease: 'power3.out' } })
-            .to(navContainer, {
-                width: 'auto',
+            // Scrol down
+            if (scrollDirection === 1) {
+            currentState = gsap.timeline({ defaults: { ease: 'power3.out' } })
+                .to(items, {
+                opacity: 0,
+                yPercent: -20,
+                duration: 0.4,
+                stagger: 0.06,
+                overwrite: 'auto'
+                })
+                .to(navContainer, {
+                width: 0,
                 duration: 0.6,
-                borderRight: '',
-                marginRight: '',
-                paddingRight: '',
-            }, 0)
+                borderRight: 'none',
+                marginRight: 0,
+                paddingRight: 0,
+                }, "-=0.2");
+            }
 
-            .to(items, {
-              opacity: 1,
-              yPercent: 0,
-              duration: 0.4,
-              stagger: { each: 0.06, from: 'end' },
-              overwrite: 'auto',
-            }, 0)
-        }
-      },
+            // Scroll up
+            if (scrollDirection === -1) {
+            currentState = gsap.timeline({ defaults: { ease: 'power3.out' } })
+                .to(navContainer, {
+                    width: 'auto',
+                    duration: 0.6,
+                    borderRight: '',
+                    marginRight: '',
+                    paddingRight: '',
+                }, 0)
+
+                .to(items, {
+                opacity: 1,
+                yPercent: 0,
+                duration: 0.4,
+                stagger: { each: 0.06, from: 'end' },
+                overwrite: 'auto',
+                }, 0)
+            }
+        },
+        });
     });
-  });
-});
+    });
 
-onDestroy(() => {
-  ScrollTrigger.getAll().forEach((t) => t.kill());
-});
+    onDestroy(() => {
+    ScrollTrigger.getAll().forEach((t) => t.kill());
+    });
 
 </script>
 
