@@ -5,6 +5,8 @@
 
   let header, mission, project;
 
+  let blackBg;
+
   gsap.registerPlugin(ScrollTrigger);
 
   onMount(() => {
@@ -12,7 +14,7 @@
     [header, mission, project].forEach((section) => {
       const bg = section.querySelector(".bg");
       gsap.to(bg, {
-        yPercent: 140, // controls depth of parallax
+        //yPercent: 177, // controls depth of parallax
         ease: "none",
         scrollTrigger: {
           trigger: section,
@@ -22,6 +24,7 @@
         },
       });
     });
+
 
     gsap.utils.toArray("#mission, #project").forEach((section) => {
   gsap.fromTo(section, 
@@ -39,6 +42,19 @@
     }
   );
 });
+
+
+	gsap.fromTo(blackBg, {
+opacity: 0,
+	}, {
+		opacity:1,
+		scrollTrigger: {
+			trigger: header,
+			start: 'bottom 150%',
+			end: 'bottom 85%',
+			scrub: true
+		}
+	})
 
 
     // Fade-in animation for text elements
@@ -77,6 +93,8 @@
         Temukan dan dukung UMKM di sekitarmu. IKU menghubungkan kamu dengan usaha kecil
         di sekitar, membantu komunitas lokal tumbuh melalui visibilitas dan kehadiran digital.
       </p>
+	  <div bind:this={blackBg} class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent to-white"></div>
+
     </header>
 
     <!-- Mission -->
@@ -107,9 +125,6 @@
       bind:this={project}
       class="relative min-h-screen grid md:grid-cols-2 gap-8 items-center px-6 md:px-16"
     >
-      <div
-        class="bg absolute inset-0  bg-center"
-      ></div>
       <div class="absolute inset-0 bg-black/90"></div>
 
       <div class="space-y-1 text-left relative z-10">
@@ -131,6 +146,8 @@
           class="rounded-2xl shadow-lg max-h-96 object-cover"
         />
       </div>
+	  <div class="absolute top-0 left-0 right-0 h-32 bg-gradient-to-t from-transparent to-white"></div>
+
     </section>
   </div>
 </section>
