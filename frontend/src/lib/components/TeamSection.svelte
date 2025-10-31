@@ -55,8 +55,9 @@
   }
 </script>
 
-<section aria-labelledby="team-heading" class="py-12">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<section aria-labelledby="team-heading" class="relative py-12 min-h-screen flex flex-col justify-center">
+	<div class="h-16 absolute top-0 right-0 left-0 bg-gradient-to-b from-black/90 to-white"></div>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8r">
     <div class="text-center mb-8">
       <h2 id="team-heading" class="text-3xl font-extrabold tracking-tight sm:text-4xl">{heading}</h2>
       {#if description}
@@ -65,7 +66,7 @@
     </div>
 
     {#if members && members.length > 0}
-      <ul role="list" class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <ul role="list" class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4i">
         {#each members as member (member.id)}
           <li class="bg-white/80 dark:bg-slate-800/70 p-6 rounded-2xl shadow-sm flex flex-col items-center text-center">
             {#if member.photo}
