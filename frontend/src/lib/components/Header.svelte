@@ -95,7 +95,7 @@
 
 </script>
 
-<header class="sticky top-0 z-50 duration-300 ease-out py-4 px-6">
+<header class="fixed top-0 w-full z-50 duration-300 ease-out py-4 px-6">
     <div class="max-w-5xl mx-auto flex-center gap-3">
         <div class="flex-between h-13 py-3 px-5 rounded-xl transition-all duration-300 bg-dark">
             <div class="flex items-center space-x-4 overflow-hidden">
