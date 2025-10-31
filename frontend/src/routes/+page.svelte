@@ -53,4 +53,3 @@
     bind:this={pathElement} />
 </svg>
 <div class="pb-96"></div>
-<

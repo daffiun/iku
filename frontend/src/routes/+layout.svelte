@@ -3,7 +3,8 @@
     import "../app.css";
     import Header from '$lib/components/Header.svelte'; 
     import About from '$lib/components/About.svelte';
-	import OurTeam from '$lib/components/OurTeam.svelte';
+	import Team from '$lib/components/Team.svelte';
+    import Stack from '$lib/components/Stack.svelte';
     let { children } = $props();
 </script>
 
@@ -15,7 +16,8 @@
 
 <Header />
 <About/>
-<OurTeam/>
+<Team/>
+<Stack />
 <Contact />
 
 <main class="flex flex-col min-h-screen">
