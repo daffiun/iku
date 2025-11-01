@@ -5,6 +5,8 @@
     import About from '$lib/components/About.svelte';
 	import Team from '$lib/components/Team.svelte';
     import Stack from '$lib/components/Stack.svelte';
+    import Faq from '$lib/components/Faq.svelte';
+    import Footer from '$lib/components/Footer.svelte';
     let { children } = $props();
 </script>
 
@@ -17,8 +19,10 @@
 <Header />
 <About/>
 <Team/>
-<Stack />
+<Faq />
 <Contact />
+<Footer />
+
 
 <main class="flex flex-col min-h-screen">
     <div class="grow">
