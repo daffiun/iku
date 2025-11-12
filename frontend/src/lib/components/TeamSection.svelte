@@ -1,11 +1,5 @@
 
 <script lang="ts">
-  /**
-   * Minimal, type-safe SvelteKit component for a team section.
-   * Accepts `members` array and renders each member responsively.
-   * Uses Tailwind classes for styling; if you don't use Tailwind remove/replace classes.
-   */
-
   export interface Socials {
     twitter?: string;
     github?: string;
@@ -18,7 +12,7 @@
     id: string | number;
     name: string;
     role?: string;
-    photo?: string; // relative or absolute URL; if empty, initials avatar shown
+    photo?: string; 
     bio?: string;
     socials?: Socials;
   }
@@ -28,7 +22,6 @@
   export let description: string = '';
 
   
-  // helper: initials from full name
   function getInitials(name: string) {
     if (!name) return '';
     const parts = name.trim().split(/\s+/);
@@ -36,7 +29,6 @@
     return initials;
   }
 
-  // helper: small inline SVG icons by key (github, twitter, linkedin, website)
   function iconFor(key: string) {
     switch (key.toLowerCase()) {
       case 'github':
@@ -55,7 +47,7 @@
   }
 </script>
 
-<section id="ourteam" aria-labelledby="team-heading" class="relative py-12 min-h-screen flex flex-col justify-center">
+<section id="ourteam" aria-labelledby="team-heading" class="relative py-32 flex flex-col justify-center">
 	<div class="h-16 absolute top-0 right-0 left-0 bg-gradient-to-b from-black/90 to-white"></div>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8r">
     <div class="text-center mb-8">
@@ -108,11 +100,7 @@
 </section>
 
 
-<style>
-  /* If you are *not* using Tailwind, these are lightweight fallbacks to keep layout usable. Remove when using Tailwind. */
-  :global(body) { --card-bg: #fff; }
-  section { font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; }
-  @media (min-width: 640px) {
+<style>  @media (min-width: 640px) {
     ul { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); }
   }
   @media (min-width: 1024px) {

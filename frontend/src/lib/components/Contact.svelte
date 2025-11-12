@@ -20,7 +20,7 @@
     }
 </script>
 
-<section id="contact_us" class="flex-center flex-col mt-12">
+<section id="contact_us" class="flex-center flex-col mt-32">
     <div class="title text-center text-5xl">
         <h2>Memiliki <span class="text-base">Pertanyaan?</span><br>Hubungi Kami.</h2>
     </div>
