@@ -9,7 +9,6 @@
     gsap.registerPlugin(ScrollTrigger);
 
     $: id = parseInt($page.params.id);
-
     $: umkm = data.find((item) => item.id === id);
 
     let container;
@@ -23,241 +22,104 @@
             duration: 0.9,
             ease: "power3.out",
             stagger: 0.15,
-			delay: 0.2
+            delay: 0.2
         });
     });
 </script>
 
-<section class="page">
+<section class="pt-20 bg-neutral-950 text-white min-h-screen">
 
-    <!-- If not found -->
     {#if !umkm}
-        <div class="not-found">
-            <p>UMKM tidak ditemukan.</p>
+        <div class="text-center mt-24 text-xl font-bold text-orange-500 tracking-wide">
+            UMKM tidak ditemukan.
         </div>
     {:else}
 
-        <div bind:this={container} class="wrapper">
+        <div bind:this={container} class="max-w-5xl mx-auto px-4">
 
-            <!-- Title Banner -->
-            <header class="banner fade">
-                <h1>{umkm.nama}</h1>
+            <header
+                class="fade bg-orange-600 py-6 text-center text-4xl font-black rounded-lg
+                shadow-[0_0_40px_rgba(255,100,0,0.5)] tracking-wide border border-orange-700"
+            >
+                {umkm.nama}
             </header>
 
-            <!-- Gallery -->
-            <div class="gallery fade">
+            <div class="gallery fade flex overflow-x-auto mt-6 rounded-lg space-x-3 snap-x snap-mandatory">
                 {#each umkm.image as img}
-                    <img src={img} alt={umkm.nama} />
+                    <img
+                        src={img}
+                        alt={umkm.nama}
+                        class="w-full h-[380px] object-cover rounded-lg flex-shrink-0 snap-center
+                        shadow-[0_0_25px_rgba(0,0,0,0.7)] border border-neutral-800"
+                    />
                 {/each}
             </div>
 
-            <!-- Content -->
-            <div class="content">
+            <div class="content mt-10 space-y-8">
 
-                <h2 class="fade">{umkm.nama}</h2>
-                <p class="short-desc fade">{umkm.short_desc}</p>
+                <h2 class="fade text-3xl md:text-4xl font-black text-orange-500 tracking-tight">
+                    {umkm.nama}
+                </h2>
 
-                <div class="desc fade">{umkm.desc}</div>
+                <p class="fade text-lg italic text-neutral-300 font-medium">
+                    {umkm.short_desc}
+                </p>
 
-                <div class="info fade">
-                    <p><strong>Alamat:</strong> {umkm.alamat}</p>
-                    <p><strong>Jam Buka:</strong> {umkm.waktu_buka} – {umkm.waktu_tutup}</p>
-                    <p><strong>Koordinat:</strong> {umkm.coor.lat}, {umkm.coor.lng}</p>
+                <div class="fade text-neutral-200 leading-relaxed text-lg">
+                    {umkm.desc}
                 </div>
 
-                <!-- Social media -->
-                <div class="social-media fade">
+                <div
+                    class="fade bg-neutral-900 px-6 py-5 border-l-4 border-orange-600 rounded-lg
+                    shadow-[0_0_20px_rgba(255,120,0,0.25)] space-y-2 text-lg font-medium"
+                >
+                    <p><strong class="text-orange-500">Alamat:</strong> {umkm.alamat}</p>
+                    <p><strong class="text-orange-500">Jam Buka:</strong> {umkm.waktu_buka} – {umkm.waktu_tutup}</p>
+                    <p><strong class="text-orange-500">Koordinat:</strong> {umkm.coor.lat}, {umkm.coor.lng}</p>
+                </div>
+
+                <div class="fade flex flex-wrap gap-4">
                     {#each Object.entries(umkm.social_media) as [key, value]}
                         <a
                             href={"https://" + (value.includes("http") ? value : (key === "x"
-                                ? "x.com/" 
+                                ? "x.com/"
                                 : key + ".com/") + value.replace("@", ""))}
                             target="_blank"
                             rel="noopener noreferrer"
+                            class="bg-neutral-900 px-4 py-2 rounded-lg font-bold text-orange-500
+                            hover:bg-neutral-800 transition shadow border border-neutral-700
+                            hover:shadow-[0_0_12px_rgba(255,120,0,0.4)]"
                         >
                             {key.toUpperCase()}
                         </a>
                     {/each}
                 </div>
 
-                <!-- Produk -->
-                <div class="produk fade">
-                    <h3>Produk</h3>
-                    <div class="produk-list">
+                <div class="fade">
+                    <h3 class="text-2xl font-black text-orange-500 mb-4 tracking-tight">
+                        Produk
+                    </h3>
+
+                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5">
                         {#each umkm.produk as p}
-                            <div class="produk-item">
-                                <img src={p.img} alt={p.nama} />
-                                <p>{p.nama}</p>
+                            <div class="bg-neutral-900 rounded-lg p-4 text-center shadow
+                                hover:shadow-[0_0_18px_rgba(255,120,0,0.4)] hover:-translate-y-1
+                                transition border border-neutral-800"
+                            >
+                                <img
+                                    src={p.img}
+                                    alt={p.nama}
+                                    class="w-full h-32 object-cover rounded-lg mb-3 border border-neutral-700"
+                                />
+                                <p class="font-bold tracking-wide">{p.nama}</p>
                             </div>
                         {/each}
                     </div>
                 </div>
+
             </div>
         </div>
     {/if}
 
 </section>
-
-<style>
-.page {
-    padding-top: 5rem;
-}
-
-:global(body) {
-    background: #111;
-    color: #fff;
-    font-family: "Poppins", sans-serif;
-}
-
-/* Not found */
-.not-found {
-    text-align: center;
-    margin-top: 6rem;
-    font-size: 1.3rem;
-    color: #ff8800;
-}
-
-/* Wrapper */
-.wrapper {
-    max-width: 1050px;
-    margin: 2rem auto;
-    padding: 0 1rem;
-}
-
-/* Header Banner */
-.banner {
-    background: #ff6600;
-    padding: 1.5rem;
-    text-align: center;
-    font-size: 2rem;
-    font-weight: 800;
-    border-radius: 8px;
-    box-shadow: 0 0 18px rgba(255, 102, 0, 0.35);
-    letter-spacing: 1px;
-}
-
-/* Gallery */
-.gallery {
-	opacity: 1;
-    margin-top: 1.7rem;
-    display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    border-radius: 10px;
-}
-
-.gallery img {
-    width: 100%;
-    height: 380px;
-    object-fit: cover;
-    flex-shrink: 0;
-    scroll-snap-align: center;
-    border-radius: 10px;
-    margin-right: 10px;
-	opacity : 1;
-}
-
-/* Content */
-.content {
-    margin-top: 2.5rem;
-}
-
-h2 {
-    font-size: 2rem;
-    font-weight: 800;
-    color: #ff6600;
-}
-
-.short-desc {
-    opacity: 0.75;
-    font-style: italic;
-    margin-top: 6px;
-}
-
-.desc {
-    margin: 1.5rem 0;
-    line-height: 1.65;
-    font-size: 1.05rem;
-}
-
-/* Info Box */
-.info {
-    background: #222;
-    padding: 1.2rem 1.4rem;
-    border-left: 4px solid #ff6600;
-    border-radius: 8px;
-    margin-bottom: 1.5rem;
-}
-
-.info strong {
-    color: #ff6600;
-}
-
-/* Social media */
-.social-media {
-    margin-bottom: 2rem;
-}
-
-.social-media a {
-    color: #ff6600;
-    font-weight: 600;
-    margin-right: 1rem;
-    text-decoration: none;
-    transition: 0.2s;
-}
-.social-media a:hover {
-    opacity: 0.7;
-}
-
-/* Produk */
-.produk h3 {
-    font-size: 1.7rem;
-    color: #ff6600;
-    font-weight: 700;
-    margin-bottom: 1rem;
-}
-
-.produk-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 1.2rem;
-}
-
-.produk-item {
-    background: #1f1f1f;
-    padding: 1rem;
-    border-radius: 10px;
-    text-align: center;
-    transition: 0.25s;
-    border: 1px solid #2a2a2a;
-}
-
-.produk-item:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 0 12px rgba(255, 102, 0, 0.25);
-}
-
-.produk-item img {
-    width: 100%;
-    height: 130px;
-    object-fit: cover;
-    border-radius: 8px;
-}
-
-.produk-item p {
-    margin-top: 0.7rem;
-    font-weight: 600;
-}
-
-/* Responsive */
-@media (max-width: 650px) {
-    .gallery img {
-        height: 250px;
-    }
-    .banner {
-        font-size: 1.6rem;
-        padding: 1.2rem;
-    }
-}
-</style>
 
