@@ -3,8 +3,8 @@
     "id": 1,
     "nama": "Warung Nasi Bu Risa Nasi Campur dan Penyetan",
     "coor": {
-      "lat": -7.2575,
-      "lng": 112.7521
+      "lat": -7.27512104513585,
+      "lng": 112.79354371844319
     },
     "image": [
       "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSxD-Ay7GdhXVOMAAI5q5LQDfRLHjRYyE_VHwIbOy59u_tFa04rKxvqk6QekPytn4P0zvQGP01XTHjddr1RicZuRHy4lgEsxZtb-bTmkNJBzju7mgZ944qcj5QEKAmE34vRCErs=w408-h306-k-no"
@@ -33,8 +33,8 @@
     "id": 2,
     "nama": "Nasi Pecel Bu Endang",
     "coor": {
-      "lat": -7.2913,
-      "lng": 112.7271
+      "lat": -7.273580522734938,
+      "lng": 112.796333436987
     },
     "image": [
       "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSyJFWnjHkEZP1cyz5R5GBkr77qN7ZsNapdYqpslP-H-oH5TccItU1oCdA1AY6WymOYeMdGf7pxOELGdFNZIJm-zYWylJ7_zA6ZsF8-6oVooMi-8MPgTnoq5OcBTYOyoqMesiAEq=w408-h544-k-no"
@@ -63,8 +63,8 @@
     "id": 3,
     "nama": "Ayam Malaysia PENS",
     "coor": {
-      "lat": -7.2661,
-      "lng": 112.7348
+      "lat": -7.2770701193837075,
+      "lng": 112.79404377465697
     },
     "image": [
       "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwavIdPbBKYhlztKCxnwPxufd-CD16V5VaKz7NMHgHyOLlorNMqFK3_eHzrhqAXmW6hLPtg49P0uM5J-5-EvD8vtL3EKHpa4Yg6dB_zY2ywtgmpQZY09a61q2rmGON4eYxrmQi2BMWSGQ=w408-h544-k-no"
@@ -88,8 +88,8 @@
     "id": 4,
     "nama": "Warung Cak Dun",
     "coor": {
-      "lat": -7.2913,
-      "lng": 112.7271
+      "lat": -7.281984054326941,
+      "lng": 112.7893959658232
     },
     "image": [
       "https://lh3.googleusercontent.com/p/AF1QipNTSd69nHT2iwPFGn773c-GOKXze-vK-uNgsA-l=w408-h306-k-no"
@@ -118,8 +118,8 @@
     "id": 5,
     "nama": "Mie Ayam Nusantara",
     "coor": {
-      "lat": -7.2661,
-      "lng": 112.7348
+      "lat": -7.2807869657399555,
+      "lng": 112.78807017931477
     },
     "image": [
       "https://lh3.googleusercontent.com/p/AF1QipPJlmvGEeK6AEDj730an0TyVZ4hH7vXkSn3Qxx-=w427-h240-k-no"
