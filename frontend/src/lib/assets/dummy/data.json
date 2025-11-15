@@ -1,0 +1,153 @@
+[
+  {
+    "id": 1,
+    "nama": "Warung Nasi Bu Risa Nasi Campur dan Penyetan",
+    "coor": {
+      "lat": -7.2575,
+      "lng": 112.7521
+    },
+    "image": [
+      "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSxD-Ay7GdhXVOMAAI5q5LQDfRLHjRYyE_VHwIbOy59u_tFa04rKxvqk6QekPytn4P0zvQGP01XTHjddr1RicZuRHy4lgEsxZtb-bTmkNJBzju7mgZ944qcj5QEKAmE34vRCErs=w408-h306-k-no"
+    ],
+    "social_media": {
+    },
+    "desc": "Tempat makan penyetan dan nasi pecel enak josjis, cocok untuk mahasiswa dan kalangan umum lainnya",
+    "short_desc": "Tempat makan penyetan",
+    "category_id": 1,
+    "alamat": "Jl. Tegal Mulyorejo Baru No.90A, Kejawaan Putih Tamba, Kec. Mulyorejo, Surabaya, Jawa Timur 60115",
+    "waktu_buka": "08:00",
+    "waktu_tutup": "22:00",
+    "produk": [
+      {
+        "id": 1,
+        "nama": "Nasi Campur",
+        "img": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSxD-Ay7GdhXVOMAAI5q5LQDfRLHjRYyE_VHwIbOy59u_tFa04rKxvqk6QekPytn4P0zvQGP01XTHjddr1RicZuRHy4lgEsxZtb-bTmkNJBzju7mgZ944qcj5QEKAmE34vRCErs=w258-h336-p-k-no"
+      },
+      {
+        "id": 2,
+        "nama": "Nasi Uduk",
+        "img": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSzGKuo7ZnrqzA7z8a2bXuEBCRNsNDrntUUJ-nzuwIfJJfZr3P_shRbHj-4enmhkGOrU_mNG2leiVh4OauArrDFFZ-ahX12wXC5Z4-h-eR3iHqoDd3WETpOcFDDsm008h32LpJo=w258-h336-p-k-no"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "nama": "Nasi Pecel Bu Endang",
+    "coor": {
+      "lat": -7.2913,
+      "lng": 112.7271
+    },
+    "image": [
+			"https://lh3.googleusercontent.com/gps-cs-s/AG0ilSyJFWnjHkEZP1cyz5R5GBkr77qN7ZsNapdYqpslP-H-oH5TccItU1oCdA1AY6WymOYeMdGf7pxOELGdFNZIJm-zYWylJ7_zA6ZsF8-6oVooMi-8MPgTnoq5OcBTYOyoqMesiAEq=w408-h544-k-no"
+    ],
+    "social_media": {
+    },
+    "desc": "Tempat makan Pecel enak, bisa takeaway atau dine in. Rasa bintang lima harga terjangkau dengan banyak pilihan menu.",
+    "short_desc": "Tempat makan nasi Pecel",
+    "category_id": 1,
+    "alamat": "PMulyorejo, Kec. Mulyorejo, Surabaya, Jawa Timur 60115",
+    "waktu_buka": "10:00",
+    "waktu_tutup": "23:00",
+    "produk": [
+      {
+        "id": 1,
+        "nama": "Oseng manisa",
+        "img": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSxFgKUJAJAGJEzIu5MesetfIWYecHH3dubeAS95RvNSeVfnITrqh_JFRkRiCAQIOI1jYldzuDBd791uITEj8LB5dCq4x6oAbARMv0f1s-jOGlVctONqGcoy_K3ogdZa9THR0nNr=w258-h336-p-k-no"
+      },
+      {
+        "id": 2,
+        "nama": "Nasi Pecel Campur",
+        "img": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSxYDlpLdyBNWhScXd9tN-YbW3CjtrecK5u0Q1ZWkRxOawBhYjabQyprGrkvMLTNq4VyOBkqlOZnkWHagoFOboP_IvcyhbXMUfqPfN5TS3V3aOqzrUZeBc52xWkW8eORTAn1DYg6=w258-h336-p-k-no"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "nama": "Ayam Malaysia PENS",
+    "coor": {
+      "lat": -7.2661,
+      "lng": 112.7348
+    },
+    "image": [
+      "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwavIdPbBKYhlztKCxnwPxufd-CD16V5VaKz7NMHgHyOLlorNMqFK3_eHzrhqAXmW6hLPtg49P0uM5J-5-EvD8vtL3EKHpa4Yg6dB_zY2ywtgmpQZY09a61q2rmGON4eYxrmQi2BMWSGQ=w408-h544-k-no"
+    ],
+    "social_media": {
+    },
+    "desc": "Nasi ayam goreng rempah Malaysia Bu Lia josjis",
+    "short_desc": "Nasi ayam Malaysia",
+    "category_id": 1,
+    "alamat": "Keputih, Kec. Sukolilo, Surabaya, Jawa Timur 60111",
+    "waktu_buka": "07:00",
+    "waktu_tutup": "20:00",
+    "produk": [
+      {
+        "id": 1,
+        "nama": "Nasi Ayam Malaysia",
+        "img": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSyZwTrfeITHGhp0sp-gCMEGhWe3c1dZ0zWdDCna1BAL8jJ9zx3hoAYn7XSbYvSvFbCkKNXjzGIFgikMI-_oxJwk34o1J2Jtjs0_rl8Y-xf2AR507uTv_xstW1vx_uEVchUv2mQKDnT7FDo=w168-h168-p-k-no"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "nama": "Warung Cak Dun",
+    "coor": {
+      "lat": -7.2913,
+      "lng": 112.7271
+    },
+    "image": [
+			"https://lh3.googleusercontent.com/p/AF1QipNTSd69nHT2iwPFGn773c-GOKXze-vK-uNgsA-l=w408-h306-k-no"
+    ],
+    "social_media": {
+    },
+    "desc": "Warung Makan enak dan terjangkau",
+    "short_desc": "Tempat makan",
+    "category_id": 1,
+    "alamat": "Jl. Gebang Wetan No.25-C, Gebang Putih, Kec. Sukolilo, Surabaya, Jawa Timur 60117",
+    "waktu_buka": "10:00",
+    "waktu_tutup": "23:00",
+    "produk": [
+      {
+        "id": 1,
+        "nama": "Nasi ayam geprek",
+        "img": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSzueUjLR3IeLZ9JbjUKZ7qMDrioet46XchUWDWP8PyYybDLzssTwbRqcbq3ITx-1QLWklnDxIUKs-XmfrAX3ji-RTh5xshsSQ5amaeboCuB4rVgfpegOhDmNXF3bo2pySeAHcJB=w258-h336-p-k-no"
+      },
+      {
+        "id": 2,
+        "nama": "Nasi Kuning",
+        "img": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwYc3xJ8Uoe8n7ro9FK7DGs1HR4PWp8elMf6hG2WefwhNBz6UpGnjGFcSrunfobnTh5O73TO05BLywK_r1aUIRg6BjUZIUUUvTSk7gcCX8PDHPF9UMKw4qFzDgrcaw-eKa71Gx_NA=w258-h336-p-k-no"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "nama": "Mie Ayam Nusantara",
+    "coor": {
+      "lat": -7.2661,
+      "lng": 112.7348
+    },
+    "image": [
+      "https://lh3.googleusercontent.com/p/AF1QipPJlmvGEeK6AEDj730an0TyVZ4hH7vXkSn3Qxx-=w427-h240-k-no"
+    ],
+    "social_media": {
+    },
+    "desc": "Tempat makan Mia Ayam Nusantara..........................",
+    "short_desc": "Mie Ayam Nusantara",
+    "category_id": 1,
+    "alamat": "Jl. Gebang Lor No.71, Gebang Putih, Kec. Sukolilo, Surabaya, Jawa Timur 60117",
+    "waktu_buka": "07:00",
+    "waktu_tutup": "20:00",
+    "produk": [
+      {
+        "id": 1,
+        "nama": "Mie Ayam Biasa",
+        "img": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwSSohLZcbwrZ-q4PjR2gfpmYuva9UDRtsNOJhsXL3ohXjwl6H2Q13RifQNzS3z-OvUjYQhdtXxIWixKOVAeob8Yr7aOiJszq7B3eTpbQQ9t-cTJ_w0xpMlOhLs3mPPDb0cEPOd=w258-h336-p-k-no"
+      },
+	  {
+		"id": 2,
+		"nama": "Gorengan",
+		"img": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSyhgFHqvmKaS7sd1sIniawAivqPdqPy32BbuSPsWkHj-T1vEggtO_WKQmCaMzCl1U8_SyGnSci4CiapLUHJOp2BLanwJYkF6qi9ksymqtJ1wYRxjH7tnyl7O6LP_oPUQWN9g8Nhmw=w258-h336-p-k-no"
+	  }
+    ]
+  }
+]
+

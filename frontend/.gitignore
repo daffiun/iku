@@ -1,7 +1,5 @@
 node_modules
 # dummy baka! >_<
-static/dummy
-src/lib/assets/dummy
 
 # Output
 .output
