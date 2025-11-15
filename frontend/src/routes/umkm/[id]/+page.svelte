@@ -38,13 +38,13 @@
         <div bind:this={container} class="max-w-5xl mx-auto px-4">
 
             <header
-                class="fade bg-orange-600 py-6 text-center text-4xl font-black rounded-lg
+                class="fade bg-orange-600 py-6 text-center text-4xl font-black rounded-sm
                 shadow-[0_0_40px_rgba(255,100,0,0.5)] tracking-wide border border-orange-700"
             >
                 {umkm.nama}
             </header>
 
-            <div class="gallery fade flex overflow-x-auto mt-6 rounded-lg space-x-3 snap-x snap-mandatory">
+            <div class="gallery fade flex overflow-x-auto mt-6 rounded-sm space-x-3 snap-x snap-mandatory">
                 {#each umkm.image as img}
                     <img
                         src={img}
@@ -55,7 +55,10 @@
                 {/each}
             </div>
 
-            <div class="content mt-10 space-y-8">
+            <div class="content fade mt-10 space-y-8 
+           bg-neutral-900/40 backdrop-blur-sm
+           p-8 md:p-10 rounded-md border border-neutral-800
+           shadow-[0_0_35px_rgba(0,0,0,0.7)]">
 
                 <h2 class="fade text-3xl md:text-4xl font-black text-orange-500 tracking-tight">
                     {umkm.nama}
@@ -102,14 +105,14 @@
 
                     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5">
                         {#each umkm.produk as p}
-                            <div class="bg-neutral-900 rounded-lg p-4 text-center shadow
+                            <div class="bg-neutral-900 rounded-sm p-4 text-center shadow
                                 hover:shadow-[0_0_18px_rgba(255,120,0,0.4)] hover:-translate-y-1
                                 transition border border-neutral-800"
                             >
                                 <img
                                     src={p.img}
                                     alt={p.nama}
-                                    class="w-full h-32 object-cover rounded-lg mb-3 border border-neutral-700"
+                                    class="w-full h-32 object-cover rounded-sm mb-3 border border-neutral-700"
                                 />
                                 <p class="font-bold tracking-wide">{p.nama}</p>
                             </div>
