@@ -14,7 +14,7 @@
   let error = null;
 
   const categoryMap = {
-    "1": "FNB",
+    "1": "F&B",
     "2": "BB",
     "3": "ANF",
     "4": "JASA",
@@ -27,9 +27,9 @@
 
     let categoryFiltered = allDataItems.filter((item) => {
       const itemCategoryName = categoryMap[item.category_id]?.toLowerCase();
-
-      if (lowerCategory === "cari semua") return true;
-      return itemCategoryName === lowerCategory;
+      
+	  if (lowerCategory === "cari semua") return true;
+      return itemCategoryName == lowerCategory;
     });
 
     if (lowerTerm) {

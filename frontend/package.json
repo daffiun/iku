@@ -14,6 +14,7 @@
 		"@sveltejs/kit": "^2.43.2",
 		"@sveltejs/vite-plugin-svelte": "^6.2.0",
 		"autoprefixer": "^10.4.21",
+		"maplibre-gl": "^5.13.0",
 		"postcss": "^8.5.6",
 		"svelte": "^5.39.5",
 		"svelte-parallax": "^0.6.0",
