@@ -56,8 +56,6 @@ opacity: 0,
 		}
 	})
 
-
-    // Fade-in animation for text elements
     gsap.utils.toArray(".header-text, #mission h3, #mission p, #project h3, #project p, #project img").forEach((el) => {
       gsap.from(el, {
         opacity: 0,
