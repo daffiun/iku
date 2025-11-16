@@ -27,7 +27,7 @@
     });
 </script>
 
-<section class="pt-20 bg-neutral-950 text-white min-h-screen">
+<section class="pt-24 bg-neutral-950 text-white min-h-screen">
 
     {#if !umkm}
         <div class="text-center mt-24 text-xl font-bold text-orange-500 tracking-wide">

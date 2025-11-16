@@ -108,7 +108,7 @@
    });
  </script>
  
- <section class="min-h-screen bg-black text-white flex flex-col items-center py-20">
+ <section class="bg-black text-white flex flex-col items-center pt-16 pb-16">
    <h1 class="text-4xl font-semibold mb-12 tracking-wide">FAQ</h1>
  
    <div class="w-full max-w-4xl px-4">

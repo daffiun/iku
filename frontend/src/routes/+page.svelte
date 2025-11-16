@@ -4,11 +4,15 @@
 	import Team from '$lib/components/Team.svelte';
 	import Contact from './../lib/components/Contact.svelte';
   import Stack from '$lib/components/Stack.svelte';
+  import Footer from '$lib/components/Footer.svelte';
+  import Faq from '$lib/components/Faq.svelte';
 </script>
 
 <main>
   <About/>
   <Team/>
   <Stack />
+  <Faq />
   <Contact />
+  <Footer />
 </main>

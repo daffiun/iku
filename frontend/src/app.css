@@ -1,40 +1,36 @@
-@import url("https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Mona+Sans:ital,wght@0,200..900;1,200..900&display=swap");
-
 @import "tailwindcss";
+
 @theme {
     --color-dark: #212123;
     --color-light-dark: #707079;
     --color-light-gray: rgba(0, 0, 0, .15);
     --color-base: #ff5c39;
     --color-white-100: #efefef;
+
     --font-sans: "Nimbus Sans L Reu", Arial, sans-serif;
     --font-machina: "Neue Machina", Arial, sans-serif;
 }
 
-/* --------------------------------------------------- */
-/* 2. Font-Face Definitions */
-/* --------------------------------------------------- */
+@font-face {
+    font-family: "Nimbus Sans L Reu";
+    src: url("/fonts/nimbussanl-regu-webfont.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
 
 @font-face {
     font-family: "Nimbus Sans L Reu";
-    src: url("/fonts/nimbussanl-regu-webfont.woff2") format("woff2"); 
-    font-weight: 400; 
+    src: url("/fonts/nimbussanl-bold-webfont.woff2") format("woff2");
+    font-weight: 700;
     font-style: normal;
-    font-display: swap; 
+    font-display: swap;
 }
 
 @font-face {
     font-family: "Neue Machina";
-    src: url("/fonts/NeueMachina-Regular.otf") format("woff2"); 
-    font-weight: 400; 
-    font-style: normal;
-    font-display: swap; 
-}
-
-@font-face {
-    font-family: "Nimbus Sans L Reu";
-    src: url("/fonts/nimbussanl-bold-webfont.woff2") format("woff2"); 
-    font-weight: 700; 
+    src: url("/fonts/NeueMachina-Regular.otf") format("opentype");
+    font-weight: 400;
     font-style: normal;
     font-display: swap;
 }
@@ -226,3 +222,4 @@ form input:focus ~ span.line::after,
 form input:focus-visible ~ span.line::after {
     transform: scaleX(1);
 }
+

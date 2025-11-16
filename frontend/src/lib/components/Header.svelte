@@ -1,154 +1,139 @@
 <script>
-    import { onMount, onDestroy } from 'svelte';
-    import { gsap } from 'gsap';
-    import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+	import { browser } from "$app/environment";
+	import { onMount, onDestroy } from "svelte";
+	import { gsap } from "gsap";
+	import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+	import { page } from "$app/stores";
+	import Logo from "$lib/assets/images/logos/logo.svg";
 
-    import Logo from "$lib/assets/images/logos/logo.svg"; 
+	$: currentPath = $page.url.pathname;
+	$: isHome = currentPath === "/";
+	let activeSection = "";
 
-    const navLinks = [
-        { text: 'Tentang Kami', href: '#about' },
-        { text: 'Fitur', href: '#', active: true },
-        { text: 'Tim', href: '#ourteam' },
-        { text: 'FAQ', href: '#' },
-        { text: 'Kontak', href: '#contact_us' },
-    ];
+	const navLinks = [
+		{ text: "Tentang Kami", href: "#about", id: "about" },
+		{ text: "Fitur", href: "#fitur", id: "fitur" },
+		{ text: "Tim", href: "#ourteam", id: "ourteam" },
+		{ text: "FAQ", href: "#faq", id: "faq" },
+		{ text: "Kontak", href: "#contact_us", id: "contact_us" }
+	];
 
-    let textLogo;
-    let navContainer;
-    let items;
+	let navContainer;
 
-    onMount(() => {
-    gsap.registerPlugin(ScrollTrigger);
-    const items = gsap.utils.toArray('.text-nav');
+	onMount(() => {
+		if (!browser || !isHome) return;
 
-    gsap.context(() => {
-        let lastScroll = 0;
-        let currentState = null;
-        let lastDirection = 0;
+		gsap.registerPlugin(ScrollTrigger);
 
-        ScrollTrigger.create({
-        trigger: 'body',
-        start: 'top top',
-        end: 'bottom bottom',
-        onUpdate: (self) => {
-            const scrollDirection = self.direction; // 1 = down, -1 = up
-            const scrollSm = Math.abs(self.scroll() - lastScroll);
+		navLinks.forEach(link => {
+			const section = document.querySelector(link.href);
+			if (!section) return;
 
-            if (scrollSm < 15) return;
-            lastScroll = self.scroll();
+			ScrollTrigger.create({
+				trigger: section,
+				start: "top center",
+				end: "bottom center",
+				onEnter: () => (activeSection = link.id),
+				onEnterBack: () => (activeSection = link.id)
+			});
+		});
 
-            if (scrollDirection !== lastDirection) {
-                if (currentState) {
-                    currentState.kill();
-                }
-            } else if (currentState && currentState.isActive()) {
-                return; 
-            }
-            lastDirection = scrollDirection;
+		const items = document.querySelectorAll("header .text-nav");
+		let lastScroll = 0;
+		let currentState = null;
+		let lastDirection = 0;
 
-            // Scrol down
-            if (scrollDirection === 1) {
-            currentState = gsap.timeline({ defaults: { ease: 'power3.out' } })
-                .to(items, {
-                opacity: 0,
-                yPercent: -20,
-                duration: 0.4,
-                stagger: 0.06,
-                overwrite: 'auto'
-                })
-                .to(navContainer, {
-                width: 0,
-                duration: 0.6,
-                borderRight: 'none',
-                marginRight: 0,
-                paddingRight: 0,
-                }, "-=0.2");
-            }
+		ScrollTrigger.create({
+			trigger: "body",
+			start: "top top",
+			end: "bottom bottom",
+			onUpdate: (self) => {
+				const scrollDirection = self.direction;
+				const scrollSm = Math.abs(self.scroll() - lastScroll);
+				if (scrollSm < 15) return;
 
-            // Scroll up
-            if (scrollDirection === -1) {
-            currentState = gsap.timeline({ defaults: { ease: 'power3.out' } })
-                .to(navContainer, {
-                    width: 'auto',
-                    duration: 0.6,
-                    borderRight: '',
-                    marginRight: '',
-                    paddingRight: '',
-                }, 0)
+				lastScroll = self.scroll();
 
-                .to(items, {
-                opacity: 1,
-                yPercent: 0,
-                duration: 0.4,
-                stagger: { each: 0.06, from: 'end' },
-                overwrite: 'auto',
-                }, 0)
-            }
-        },
-        });
-    });
-    });
+				if (scrollDirection !== lastDirection) {
+					currentState?.kill();
+				} else if (currentState?.isActive()) {
+					return;
+				}
 
-    onDestroy(() => {
-    ScrollTrigger.getAll().forEach((t) => t.kill());
-    });
+				lastDirection = scrollDirection;
 
+				if (scrollDirection === 1) {
+					currentState = gsap.timeline({ defaults: { ease: "power3.out" } })
+						.to(items, { opacity: 0, yPercent: -20, duration: 0.4, stagger: 0.06, overwrite: "auto" })
+						.to(navContainer, { width: 0, duration: 0.6, borderRight: "none", marginRight: 0, paddingRight: 0 }, "-=0.2");
+				}
+
+				if (scrollDirection === -1) {
+					currentState = gsap.timeline({ defaults: { ease: "power3.out" } })
+						.to(navContainer, { width: "auto", duration: 0.6, borderRight: "", marginRight: "", paddingRight: "" }, 0)
+						.to(items, { opacity: 1, yPercent: 0, duration: 0.4, stagger: { each: 0.06, from: "end" }, overwrite: "auto" }, 0);
+				}
+			}
+		});
+	});
+
+	onDestroy(() => {
+		if (browser) ScrollTrigger.getAll().forEach(t => t.kill());
+	});
 </script>
 
 <header class="fixed top-0 w-full z-50 duration-300 ease-out py-4 px-6">
-    <div class="max-w-5xl mx-auto flex-center gap-3">
-        <div class="flex-between h-13 py-3 px-5 rounded-xl transition-all duration-300 bg-dark">
-            <div class="flex items-center space-x-4 overflow-hidden">
-                <a href="/" class="flex items-center space-x-2">
-                    <img src="{Logo}" alt="IKU Logo" class="h-15 w-15 text-orange-500" />
-                    <span bind:this={textLogo} class="text-sm text-white sm:inline whitespace-nowrap">Index Kewirausahaan UMKM</span>
-                </a>
-            </div>
+	<div class="max-w-5xl mx-auto flex-col md:flex-row flex-center gap-3">
+		<div class="flex-between h-13 py-3 px-5 rounded-xl transition-all duration-300 bg-dark gap-4">
+			<div class="flex items-center space-x-4 overflow-hidden sm:block hidden">
+				<a href="/" class="flex items-center space-x-2">
+					<img src="{Logo}" alt="IKU Logo" class="h-15 w-15" />
+					<span class="text-sm text-white whitespace-nowrap">Index Kewirausahaan UMKM</span>
+				</a>
+			</div>
 
-            <nav bind:this={navContainer} class="flex items-center space-x-6 ml-6 pl-6 mr-3 pr-3 border-x-gray">
-                <ul class="flex-center space-x-6 text-white text-sm font-medium">
-                    {#each navLinks as link}
-                        <li class="group relative nav-link">
-                            <a href={link.href} class="nav-slide-link block h-6 overflow-hidden 
-                                            transition-colors duration-300">
-                                
-                                <div class="nav-slide-wrapper flex flex-col transform transition-transform duration-300 {link.active ? 'text-orange-500' : 'text-gray-300'}">
-                                    <span class="block h-6 shrink-0 text-nav">{link.text}</span>
-                                    <span class="block h-6 shrink-0" aria-hidden="true">{link.text}</span>
-                                </div>
-                            </a>
-                        </li>
-                    {/each}
-                </ul>
-            </nav>
+			{#if isHome}
+				<nav bind:this={navContainer} class="sm:flex items-center hidden space-x-6 ml-6 pl-6 mr-3 pr-3 border-x-gray">
+					<ul class="flex-center space-x-6 text-white text-sm font-medium">
+						{#each navLinks as link}
+							<li class="group relative nav-link">
+								<a href={link.href} class="nav-slide-link block h-6 overflow-hidden transition-colors duration-300">
+									<div class="nav-slide-wrapper flex flex-col transform transition-transform duration-300 {activeSection === link.id ? 'text-orange-500' : 'text-gray-300'}">
+										<span class="block h-6 shrink-0 text-nav">{link.text}</span>
+										<span class="block h-6 shrink-0">{link.text}</span>
+									</div>
+								</a>
+							</li>
+						{/each}
+					</ul>
+				</nav>
+			{:else}
+				<a href="/" class="bg-transparant border border-white text-white hover:border-base hover:bg-base btn-nav py-1 px-3 rounded-md">
+					<span class="text-sm whitespace-nowrap">Home</span>
+				</a>
+			{/if}
 
-            <a href="#" class="bg-transparant relative border border-white text-white hover:border-base hover:bg-base btn-nav py-1 px-3 btn-clip">
-                <span class="stroke"></span>
-                <span class="text-sm text-white whitespace-nowrap">GABUNG</span>
-            </a>
-        </div>
-        <div>
-            <a href="#contact" 
-                class="relative flex-center h-13 rounded-xl px-4 py-2 w-[166px] text-sm nav-link overflow-hidden group bg-dark text-white">
-                
-                <span class="font-bold relative flex-center z-20 transition-transform duration-300 ease-out 
-                            group-hover:translate-x-[-50%] -translate-x-4 group-hover:opacity-0">
-                    Jelajahi Peta
-                </span>
+			<a href="/umkm" class="bg-transparant border border-white text-white hover:border-base hover:bg-base btn-nav py-1 px-3 rounded-md">
+				<span class="text-sm whitespace-nowrap">Jelajahi UMKM</span>
+			</a>
+		</div>
 
-                <div class="absolute right-3 text-black bg-base rounded-md z-20 
-                            transition-all duration-300 ease-out 
-                            group-hover:w-full group-hover:rounded-xl group-hover:right-0 group-hover:h-full h-8 w-8">
-                    
-                    <span class="abs-center transition-transform duration-300 ease-out">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" height="20px" width="20px" fill="none" class="c-custom-svg">
-                            <path d="M1 5.25C0.585786 5.25 0.25 5.58579 0.25 6C0.25 6.41421 0.585786 6.75 1 6.75V5.25ZM11.5303 6.53033C11.8232 6.23744 11.8232 5.76256 11.5303 5.46967L6.75736 0.696699C6.46447 0.403806 5.98959 0.403806 5.6967 0.696699C5.40381 0.989593 5.40381 1.46447 5.6967 1.75736L9.93934 6L5.6967 10.2426C5.40381 10.5355 5.40381 11.0104 5.6967 11.3033C5.98959 11.5962 6.46447 11.5962 6.75736 11.3033L11.5303 6.53033ZM1 6V6.75H11V6V5.25H1V6Z" fill="currentColor"></path>
-                        </svg>
-                    </span>
-                </div>
-            </a>
-        </div>
+        {#if currentPath !== '/maps'}
+		<div>
+			<a href="/maps" class="relative flex-center h-13 rounded-xl px-4 py-2 w-[166px] text-sm nav-link overflow-hidden group bg-dark text-white">
+				<span class="font-bold relative flex-center z-20 transition-transform duration-300 ease-out group-hover:translate-x-[-50%] -translate-x-4 group-hover:opacity-0">
+					Jelajahi Peta
+				</span>
 
-                    
-    </div>
+				<div class="absolute right-3 bg-base text-black rounded-md z-20 transition-all duration-300 ease-out group-hover:w-full group-hover:rounded-xl group-hover:right-0 group-hover:h-full h-8 w-8">
+					<span class="abs-center transition-transform duration-300 ease-out">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" height="20" width="20" fill="none">
+							<path d="M1 5.25C0.585786 5.25 0.25 5.58579 0.25 6C0.25 6.41421 0.585786 6.75 1 6.75V5.25ZM11.5303 6.53033C11.8232 6.23744 11.8232 5.76256 11.5303 5.46967L6.75736 0.696699C6.46447 0.403806 5.98959 0.403806 5.6967 0.696699C5.40381 0.989593 5.40381 1.46447 5.6967 1.75736L9.93934 6L5.6967 10.2426C5.40381 10.5355 5.40381 11.0104 5.6967 11.3033C5.98959 11.5962 6.46447 11.5962 6.75736 11.3033L11.5303 6.53033ZM1 6V6.75H11V6V5.25H1V6Z" fill="currentColor"/>
+						</svg>
+					</span>
+				</div>
+			</a>
+		</div>
+        {/if}
+	</div>
 </header>

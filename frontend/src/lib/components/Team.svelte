@@ -5,9 +5,9 @@
     {
       id: 1,
       name: 'Daffi Achmad Wijayanto',
-      role: 'Product Owner',
+      role: 'Raja',
       photo: '/images/bg/cp3.jpg',
-      bio: 'I prefer mouth to mouth conversation',
+      bio: 'I prefer face to face conversation',
       socials: {
         github: 'https://github.com/daffiun'
       }
@@ -15,9 +15,9 @@
     {
       id: 2,
       name: 'Irvan Kurniawan',
-      role: 'Scrum Master',
+      role: 'Frontend Developer',
       photo: '/images/bg/cp1.jpg',
-      bio: 'Hidup jokow',
+      bio: 'Jarwis tolong itunya diapakan gitu biar gk apakali',
       socials: {
         github: 'https://github.com/IrvanKurniawan624'
       }
@@ -25,7 +25,7 @@
     {
       id: 3,
       name: 'Hilal Rahmatullah',
-      role: 'Backend Developer',
+      role: 'Frontend Developer',
       photo: '/images/bg/cp2.jpg',
       bio: 'tch',
       socials: {

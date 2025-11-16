@@ -1,229 +1,217 @@
 <script>
-    import { onMount, onDestroy } from 'svelte';
-    import maplibregl from 'maplibre-gl';
-    import 'maplibre-gl/dist/maplibre-gl.css';
+	import { onMount, onDestroy } from 'svelte';
+	import maplibregl from 'maplibre-gl';
+	import 'maplibre-gl/dist/maplibre-gl.css';
 
-    export let MAPTILER_API_KEY;
+	export let MAPTILER_API_KEY;
 
-    let mapContainer;
-    let map;
-    let searchQuery = '';
-    let filteredUmkm = [];
+	let map;
+	let mapContainer;
+	let loading = true;
+	let searchQuery = "";
+	let filteredUmkm = [];
 
-    // --- UMKM Data (Dummy JSON) ---
-    const UMKM_DATA = [
-        {
-            id: 1,
-            name: "Bakso Sultan Surabaya",
-            category: "Food & Beverage",
-            description: "Delicious and authentic Indonesian meatball stall, famous for its giant portions.",
-            coords: [112.745, -7.260],
-            hashtag: "#BaksoSultanSby",
-            menu: [{ item: "Bakso Biasa", price: 15000 }, { item: "Bakso Urat Jumbo", price: 25000 }],
-            details_link: "/umkm/bakso-sultan"
-        },
-        {
-            id: 2,
-            name: "Kopi Nusantara Co.",
-            category: "Café & Coffee Shop",
-            description: "Cozy café specializing in local East Java coffee beans. Great for work or meetings.",
-            coords: [112.730, -7.275],
-            hashtag: "#KopiNusantaraSby",
-            menu: [{ item: "Latte", price: 20000 }, { item: "Es Kopi Susu", price: 18000 }],
-            details_link: "/umkm/kopi-nusantara"
-        },
-        {
-            id: 3,
-            name: "Kerajinan Batik Tulis",
-            category: "Handicraft & Apparel",
-            description: "Handmade traditional Batik clothing and accessories, supporting local artisans.",
-            coords: [112.765, -7.250],
-            hashtag: "#BatikSurabaya",
-            menu: [{ item: "Syal Batik", price: 50000 }, { item: "Kemeja Batik", price: 150000 }],
-            details_link: "/umkm/batik-tulis"
-        }
-    ];
+	const categoryMap = {
+		"1": "F&B",
+		"2": "BB",
+		"3": "ANF",
+		"4": "JASA",
+		"5": "LAINNYA"
+	};
 
-    const MAP_STYLE_URL = `https://api.maptiler.com/maps/dataviz-dark/style.json?key=${MAPTILER_API_KEY}`;
-    const SURABAYA_CENTER = [112.7525, -7.2575];
+	const categoryIconMap = {
+		"F&B": "restaurant",
+		"BB": "storefront",
+		"ANF": "checkroom",
+		"JASA": "construction",
+		"LAINNYA": "category"
+	};
 
-    function initializeMap() {
-    if (!mapContainer || map) return;
+	import rawUmkm from '$lib/assets/dummy/umkm.json';
 
-    try {
-        map = new maplibregl.Map({
-            container: mapContainer,
-            style: MAP_STYLE_URL,
-            center: SURABAYA_CENTER,
-            zoom: 13,
-            pitch: 0,
-            bearing: 0,
-            antialias: true
-        });
+	const UMKM_DATA = rawUmkm.map(u => {
+		const cat = categoryMap[u.category_id] || "LAINNYA";
+		return {
+			id: u.id,
+			name: u.nama,
+			category: cat,
+			description: u.desc ?? "",
+			image: u.image?.[0] ?? "",
+			coords: [u.coor.lng, u.coor.lat],
+			icon: categoryIconMap[cat],
+			details_link: `/umkm/${u.id}`
+		};
+	});
 
-        map.on('load', () => {
-            updateMarkers(UMKM_DATA);
+	const MAP_STYLE_URL = `https://api.maptiler.com/maps/darkmatter/style.json?key=${MAPTILER_API_KEY}`;
+	const CENTER = [112.7525, -7.2575];
 
-            // 🔹 Add zoom scaling for markers
-            map.on('zoom', () => {
-                const zoom = map.getZoom();
-                const scale = Math.pow(zoom / 13, 0.8); // adjust exponent for sensitivity
-                document.querySelectorAll('.custom-umkm-marker-wrapper').forEach(marker => {
-                    marker.style.transform = `scale(${scale})`;
-                });
-            });
-        });
+	onMount(() => {
+		map = new maplibregl.Map({
+			container: mapContainer,
+			style: MAP_STYLE_URL,
+			center: CENTER,
+			zoom: 13,
+			antialias: true
+		});
 
-        map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'bottom-right');
-    } catch (error) {
-        console.error("MapLibre initialization failed:", error);
-        if (!error.message.includes('_getUIString')) {
-            throw error;
-        }
-    }
-}
+		map.addControl(new maplibregl.NavigationControl({ showCompass: false }), "bottom-right");
 
+		map.on("load", () => {
+			updateMarkers(UMKM_DATA);
+			loading = false;
+		});
 
-    // --- Marker and Popup Logic ---
-    function updateMarkers(data) {
-        if (!map) return;
-        document.querySelectorAll('.maplibregl-marker').forEach(marker => marker.remove());
+		map.on("zoom", updateZoomState);
+	});
 
-        data.forEach(umkm => {
-            const markerElement = createCustomMarkerElement(umkm);
+	onDestroy(() => map && map.remove());
 
-            const popupHTML = `
+	function updateZoomState() {
+		const zoom = map.getZoom();
+		const showName = zoom >= 13;
+		document.querySelectorAll(".pin-text").forEach(t => {
+			t.style.display = showName ? "inline" : "none";
+		});
+	}
+
+	function updateMarkers(list) {
+		document.querySelectorAll(".maplibregl-marker").forEach(m => m.remove());
+
+		list.forEach(umkm => {
+			const el = createMarker(umkm);
+
+			const popup = new maplibregl.Popup({ offset: 25 }).setHTML(`
                 <div class="p-2 font-sans text-gray-800">
+					<img src="${umkm.image}" class="w-full h-32 object-cover rounded mb-2"/>
                     <h3 class="font-bold text-lg mb-1">${umkm.name}</h3>
-                    <p class="text-xs text-gray-500 mb-2">Category: ${umkm.category}</p>
-                    <p class="mb-2">${umkm.description}</p>
-                    <p class="text-blue-500 font-mono text-sm mb-3">${umkm.hashtag}</p>
-                    <a href="${umkm.details_link}" class="bg-orange-500 text-white px-3 py-1 rounded text-sm hover:bg-orange-600 transition">See Details</a>
+                    <p class="mb-3">${umkm.description}</p>
+                    <a href="${umkm.details_link}"
+                        class="bg-orange-500 text-white px-3 py-1 rounded text-sm hover:bg-orange-600 transition">
+                        See Details
+                    </a>
                 </div>
-            `;
+            `);
 
-            new maplibregl.Marker({
-                element: markerElement,
-                anchor: 'center',
-                offset: [0, -15] // keeps red bubble tip stable on coordinate
-            })
-                .setLngLat(umkm.coords)
-                .setPopup(new maplibregl.Popup({ offset: 25 }).setHTML(popupHTML))
-                .addTo(map);
-        });
-    }
+			new maplibregl.Marker({ element: el, anchor: "bottom" })
+				.setLngLat(umkm.coords)
+				.setPopup(popup)
+				.addTo(map);
+		});
 
-    function createCustomMarkerElement(umkm) {
-        const el = document.createElement('div');
-        el.className = 'custom-umkm-marker-wrapper';
+		updateZoomState();
+	}
 
-        const createTag = (text, className) => {
-            const tag = document.createElement('div');
-            tag.className = `tag-badge ${className}`;
-            tag.textContent = text;
-            return tag;
-        };
+	function createMarker(umkm) {
+		const wrapper = document.createElement("div");
+		wrapper.className = "pin-root";
 
-        const nameTag = createTag(umkm.name, 'bg-red-500 text-white font-bold text-base shadow-lg');
-        const categoryTag = createTag(umkm.category, 'bg-yellow-500 text-gray-900 font-medium text-xs shadow-md');
-        const hashtagText = umkm.hashtag ? umkm.hashtag : '#IKUMKM';
-        const hashtagTag = createTag(hashtagText, 'bg-green-500 text-white font-medium text-xs shadow-md');
+		const bubble = document.createElement("div");
+		bubble.className = "pin-bubble";
 
-        el.appendChild(nameTag);
-        el.appendChild(categoryTag);
-        el.appendChild(hashtagTag);
+		const icon = document.createElement("span");
+		icon.className = "material-symbols-outlined pin-icon";
+		icon.textContent = umkm.icon;
 
-        return el;
-    }
+		const text = document.createElement("span");
+		text.className = "pin-text";
+		text.textContent = umkm.name;
 
-    // --- Search filtering ---
-    $: {
-        if (searchQuery) {
-            const query = searchQuery.toLowerCase();
-            filteredUmkm = UMKM_DATA.filter(umkm =>
-                umkm.name.toLowerCase().includes(query) ||
-                umkm.category.toLowerCase().includes(query) ||
-                umkm.hashtag.toLowerCase().includes(query)
-            );
-        } else {
-            filteredUmkm = UMKM_DATA;
-        }
+		bubble.appendChild(icon);
+		bubble.appendChild(text);
 
-        if (map) updateMarkers(filteredUmkm);
-    }
+		const pointer = document.createElement("div");
+		pointer.className = "pin-pointer";
 
-    onMount(() => initializeMap());
-    onDestroy(() => map && map.remove());
+		wrapper.appendChild(bubble);
+		wrapper.appendChild(pointer);
+
+		return wrapper;
+	}
+
+	$: {
+		if (!searchQuery) filteredUmkm = UMKM_DATA;
+		else {
+			const q = searchQuery.toLowerCase();
+			filteredUmkm = UMKM_DATA.filter(u =>
+				u.name.toLowerCase().includes(q)
+			);
+		}
+		if (map) updateMarkers(filteredUmkm);
+	}
 </script>
 
-<!-- Map Container -->
 <div class="relative w-screen h-screen">
-    <div bind:this={mapContainer} class="w-full h-full" />
+	{#if loading}
+	<div class="absolute inset-0 flex items-center justify-center bg-black/70 z-20">
+		<div class="flex flex-col items-center">
+			<div class="loader mb-3"></div>
+			<p class="text-white text-lg">Loading map...</p>
+		</div>
+	</div>
+	{/if}
 
-    <!-- Search Box -->
-    <div class="absolute top-4 left-1/2 transform -translate-x-1/2 z-10 w-full max-w-lg">
-        <input
-            type="text"
-            bind:value={searchQuery}
-            placeholder="Search UMKM by name, category, or hashtag..."
-            class="w-full p-4 rounded-xl shadow-2xl bg-gray-800 text-white placeholder-gray-400 border-2 border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500 transition duration-150"
-        />
-    </div>
+	<div bind:this={mapContainer} class="w-full h-full"></div>
+
+	<div class="absolute top-24 left-1/2 -translate-x-1/2 z-10 w-full max-w-lg">
+		<input
+			type="text"
+			bind:value={searchQuery}
+			placeholder="Search UMKM..."
+			class="w-full p-4 rounded-xl shadow-2xl bg-gray-800 text-white placeholder-gray-400 border-2 border-orange-500 focus:ring-2 focus:ring-orange-500"
+		/>
+	</div>
 </div>
 
 <style>
-/* Marker Wrapper */
-:global(.custom-umkm-marker-wrapper) {
-  position: relative;
+:global(.material-symbols-outlined) {
+  font-variation-settings: 'FILL' 0, 'wght' 500, 'GRAD' 0, 'opsz' 48;
+}
+
+:global(.pin-root) {
   display: flex;
   flex-direction: column;
   align-items: center;
-  cursor: pointer;
-  z-index: 10;
-  height: 100px;
-  pointer-events: auto;
 }
 
-/* Tag Base Style */
-:global(.tag-badge) {
-  padding: 6px 14px;
-  border-radius: 9999px;
+:global(.pin-bubble) {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, #ff8746, #ff4d00);
+  padding: 6px 12px;
+  border-radius: 20px;
+  color: white;
+  font-size: 13px;
   white-space: nowrap;
-  text-align: center;
-  position: absolute;
-  transition: all 0.2s ease;
-  font-family: 'Inter', sans-serif;
-  letter-spacing: 0.2px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  box-shadow: 0 3px 12px rgba(0,0,0,0.4);
 }
 
-/* Tag Positioning */
-:global(.custom-umkm-marker-wrapper > :nth-child(1)) {
-  bottom: 0px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 30;
-  clip-path: polygon(0% 0%, 100% 0%, 100% 80%, 55% 80%, 50% 100%, 45% 80%, 0% 80%);
-  padding-bottom: 15px;
+:global(.pin-icon) {
+  font-size: 20px;
 }
 
-:global(.custom-umkm-marker-wrapper > :nth-child(2)) {
-  bottom: 45px;
-  left: 50%;
-  transform: translateX(-110%);
-  z-index: 20;
+:global(.pin-text) {
+  font-weight: 600;
 }
 
-:global(.custom-umkm-marker-wrapper > :nth-child(3)) {
-  bottom: 65px;
-  left: 50%;
-  transform: translateX(10%);
-  z-index: 25;
+:global(.pin-pointer) {
+  width: 14px;
+  height: 14px;
+  background: #ff4d00;
+  clip-path: polygon(50% 100%, 0 0, 100% 0);
+  margin-top: -2px;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.4);
 }
 
-/* Hover Animation */
-:global(.custom-umkm-marker-wrapper:hover .tag-badge) {
-  transform: translateY(-2px) scale(1.05);
-  filter: brightness(1.1);
+.loader {
+  width: 30px;
+  height: 30px;
+  border: 4px solid #ffffff33;
+  border-top-color: #ff7a18;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
 }
+
+@keyframes spin { to { transform: rotate(360deg); } }
 </style>
